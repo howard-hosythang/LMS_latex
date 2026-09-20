@@ -4,13 +4,13 @@
 
 Phần hiện thực được tổ chức theo ba lớp triển khai chính của hệ thống:
 frontend, backend và AI service. Để tránh báo cáo bị dàn trải, chương này trình
-bày theo dạng tổng hợp những gì nhóm đã hiện thực, thay vì mô tả tuần tự từng
+bày theo dạng tổng hợp những phần đã hiện thực, thay vì mô tả tuần tự từng
 màn hình hoặc từng hàm. Cách trình bày này giúp thể hiện đầy đủ phạm vi công
 việc đã làm nhưng vẫn giữ báo cáo ngắn gọn.
 
 \subsection{Hiện thực Frontend}
 
-Nhóm đã hiện thực frontend bằng React, TypeScript và Vite theo mô hình Single
+Frontend được hiện thực bằng React, TypeScript và Vite theo mô hình Single
 Page Application. Frontend đảm nhiệm hiển thị dữ liệu, điều phối trạng thái đăng
 nhập, phân vùng giao diện theo vai trò, gọi API nghiệp vụ, nhận thông báo thời
 gian thực, upload tài liệu, hiển thị QR nhận sách và hỗ trợ thanh toán phí phạt
@@ -101,6 +101,10 @@ phí phạt và phản hồi review. \\
 \texttt{/librarianpage} & Dashboard thủ thư &
 Thống kê vận hành, sách mượn/trả, yêu cầu chờ xử lý, phí phạt, cảnh báo quá hạn
 và các thao tác nhanh. \\
+\hline
+{\footnotesize\texttt{/librarianpage/}\newline\texttt{reports}} & Báo cáo điều hành &
+Tổng hợp báo cáo vận hành cho thủ thư, gồm các chỉ số mượn--trả, đặt trước, phí
+phạt, xu hướng sử dụng tài liệu và dữ liệu hỗ trợ ra quyết định. \\
 \hline
 \texttt{/librarianpage} & Quản lý ấn phẩm &
 Tạo/sửa/xóa ấn phẩm, tác giả, nhà xuất bản, danh mục, tag, ảnh bìa, ISBN auto
@@ -331,6 +335,12 @@ Vận hành tại quầy &
 Màn hình thủ thư hỗ trợ mượn trực tiếp, xác nhận nhận sách, trả sách, ghi chú và xử lý phí. &
 Nghiệp vụ mượn--trả không còn chỉ nằm ở phần demo giao diện. \\
 \hline
+Báo cáo điều hành &
+Trang \texttt{/librarianpage/reports} gom dữ liệu vận hành thành các báo cáo
+theo dõi mượn--trả, phí phạt, đặt trước và xu hướng sử dụng tài liệu. &
+Thủ thư có thêm góc nhìn tổng hợp để theo dõi tình hình thư viện và ra quyết
+định vận hành dựa trên dữ liệu. \\
+\hline
 Tài liệu số &
 Upload bìa/PDF, progress upload, presigned URL và kích hoạt AI xử lý nền. &
 Thủ thư có thể đưa tài liệu mới vào hệ thống và theo dõi kết quả xử lý. \\
@@ -346,7 +356,7 @@ Người dùng biết ngay khi có thay đổi quan trọng thay vì phải tả
 
 \subsection{Hiện thực Backend}
 
-Nhóm đã hiện thực backend bằng Spring Boot 3.3.5 và Java 21 theo mô hình modular
+Backend được hiện thực bằng Spring Boot 3.3.5 và Java 21 theo mô hình modular
 monolith. Backend là lớp kiểm soát chính của hệ thống: xác thực, phân quyền,
 giao dịch mượn--trả, trạng thái bản sao, phí phạt, thanh toán, thông báo, audit
 và gateway sang AI service đều đi qua backend. Cấu trúc module được chia theo
@@ -729,7 +739,7 @@ Có bảng module Backend, bảng giá trị Backend và ảnh Swagger/cấu tr�
 
 \section{Tổng kết hiện thực}
 
-Về tổng thể, nhóm đã hiện thực hệ thống theo đúng ba lớp: frontend phục vụ tương
+Về tổng thể, hệ thống đã được hiện thực theo đúng ba lớp: frontend phục vụ tương
 tác theo vai trò, backend giữ nghiệp vụ và dữ liệu gốc, AI service xử lý các tác
 vụ thông minh. Các chức năng đã làm không chỉ dừng ở demo giao diện, mà đã nối
 tới API, cơ sở dữ liệu, tác vụ nền, dịch vụ ngoài, kiểm thử và cấu hình triển

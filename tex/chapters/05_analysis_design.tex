@@ -13,65 +13,12 @@ Phần phân tích use case được xây dựng theo phạm vi hệ thống đ�
 thống có các tác nhân chính gồm \textbf{Khách}, \textbf{Bạn đọc},
 \textbf{Thủ thư} và \textbf{Quản trị viên}; ngoài ra còn có các hệ thống phụ
 trợ như \textbf{Google OAuth}, \textbf{PayOS}, \textbf{Dịch vụ Email} và
-\textbf{Gemini API}. Để tránh một sơ đồ quá dày, use case được trình bày thành
-một sơ đồ tổng quát và sáu sơ đồ module chi tiết.
-
-\begin{figure}[H]
- \centering
- \includegraphics[width=\linewidth, height=0.82\textheight, keepaspectratio]{figures/ch05/usecase/overview.png}
- \caption{Biểu đồ Use Case tổng quát}
- \label{fig:usecase_overview}
-\end{figure}
-
-\begin{figure}[H]
- \centering
- \includegraphics[width=\linewidth, height=0.78\textheight, keepaspectratio]{figures/ch05/usecase/modules/01_auth_account.png}
- \caption{Use Case module Xác thực và tài khoản}
- \label{fig:usecase_auth_account}
-\end{figure}
-
-\begin{figure}[H]
- \centering
- \includegraphics[width=\linewidth, height=0.78\textheight, keepaspectratio]{figures/ch05/usecase/modules/02_discovery_catalog.png}
- \caption{Use Case module Tra cứu và khám phá tài liệu}
- \label{fig:usecase_discovery_catalog}
-\end{figure}
-
-\begin{figure}[H]
- \centering
- \includegraphics[width=\linewidth, height=0.78\textheight, keepaspectratio]{figures/ch05/usecase/modules/03_reader_services.png}
- \caption{Use Case module Chức năng bạn đọc}
- \label{fig:usecase_reader_services}
-\end{figure}
-
-\begin{figure}[H]
- \centering
- \includegraphics[width=\linewidth, height=0.78\textheight, keepaspectratio]{figures/ch05/usecase/modules/04_librarian_operations.png}
- \caption{Use Case module Chức năng thủ thư}
- \label{fig:usecase_librarian_operations}
-\end{figure}
-
-\begin{figure}[H]
- \centering
- \includegraphics[width=\linewidth, height=0.78\textheight, keepaspectratio]{figures/ch05/usecase/modules/05_admin_management.png}
- \caption{Use Case module Chức năng quản trị}
- \label{fig:usecase_admin_management}
-\end{figure}
-
-\begin{figure}[H]
- \centering
- \includegraphics[width=\linewidth, height=0.78\textheight, keepaspectratio]{figures/ch05/usecase/modules/06_ai_automation.png}
- \caption{Use Case module AI và xử lý tự động}
- \label{fig:usecase_ai_automation}
-\end{figure}
-
-Sơ đồ tổng quát trong Hình~\ref{fig:usecase_overview} cho thấy ranh giới chính
-của hệ thống: nhóm xác thực/tài khoản, nhóm tra cứu tài liệu, nhóm nghiệp vụ
-bạn đọc, nhóm nghiệp vụ thủ thư, nhóm quản trị và nhóm AI tự động. Các sơ đồ
-module từ Hình~\ref{fig:usecase_auth_account} đến
-Hình~\ref{fig:usecase_ai_automation} làm rõ các quan hệ
-\texttt{include}/\texttt{extend}: đăng ký bao gồm xác thực email; tìm kiếm có
-thể mở rộng sang semantic search; mượn/đặt trước bao gồm kiểm tra điều kiện
+\textbf{Gemini API}. Để giữ báo cáo trong giới hạn số trang, phần này trình bày
+use case dưới dạng bảng đối chiếu thay cho các sơ đồ module chi tiết. Ranh giới
+chức năng chính của hệ thống gồm nhóm xác thực/tài khoản, nhóm tra cứu tài liệu,
+nhóm nghiệp vụ bạn đọc, nhóm nghiệp vụ thủ thư, nhóm quản trị và nhóm AI tự
+động. Các quan hệ nghiệp vụ chính gồm: đăng ký bao gồm xác thực email; tìm kiếm
+có thể mở rộng sang semantic search; mượn/đặt trước bao gồm kiểm tra điều kiện
 mượn; upload PDF bao gồm xử lý AI; trả sách và báo hư/mất bao gồm tính phí và
 gửi thông báo.
 
@@ -102,7 +49,7 @@ AI và xử lý tự động & Semantic search, recommendation, sách tương t�
 \label{subsec:activity-diagram}
 
 Activity Diagram được dùng để mô tả các luồng xử lý chính sau khi đã xác định
-use case. Nhóm tập trung vào các nghiệp vụ có nhiều bước và có tương tác giữa
+use case. Phần mô hình hóa tập trung vào các nghiệp vụ có nhiều bước và có tương tác giữa
 người dùng, giao diện, backend và dịch vụ phụ trợ: xác thực, tra cứu, mượn--trả,
 quản lý sách, đánh giá, xử lý hàng chờ và gợi ý sách.
 
@@ -274,7 +221,7 @@ Trong hệ thống LMS, AI không được đặt vào như một chức năng p
     \item \textbf{Module 3 -- Gợi ý cá nhân hoá:} kết hợp nội dung sách, hành vi người dùng và fallback nghiệp vụ để đề xuất sách có thể mượn.
 \end{itemize}
 
-Nhóm chọn mô hình \textbf{AI Satellite Service}: backend Java giữ nghiệp vụ và giao dịch; AI Service Python/FastAPI xử lý workload nặng như đọc PDF, sinh embedding, truy vấn pgvector và recommendation. Cách tách này giúp hệ thống vừa \textbf{giữ lõi nghiệp vụ ổn định}, vừa \textbf{tận dụng hệ sinh thái AI của Python}.
+Dự án chọn mô hình \textbf{AI Satellite Service}: backend Java giữ nghiệp vụ và giao dịch; AI Service Python/FastAPI xử lý workload nặng như đọc PDF, sinh embedding, truy vấn pgvector và recommendation. Cách tách này giúp hệ thống vừa \textbf{giữ lõi nghiệp vụ ổn định}, vừa \textbf{tận dụng hệ sinh thái AI của Python}.
 
 Về mặt giá trị sử dụng, AI giải quyết ba điểm yếu thường gặp của hệ thống thư
 viện truyền thống. Thứ nhất, nhiều tài liệu chỉ được mô tả bằng tiêu đề và vài
@@ -368,7 +315,7 @@ AI Service & Xử lý PDF, sinh embedding, tìm kiếm ngữ nghĩa, tạo metad
 
 \subsection{Cơ sở thiết kế dữ liệu AI}
 
-Trước khi hiện thực, nhóm xác định rõ AI cần ba nhóm dữ liệu đầu vào. Cách
+Trước khi hiện thực, thiết kế xác định rõ AI cần ba nhóm dữ liệu đầu vào. Cách
 thiết kế này giúp tránh tình trạng ``có model trước rồi mới tìm dữ liệu'', đồng
 thời bảo đảm mỗi thuật toán đều có nguồn tín hiệu khả thi trong hệ thống thư
 viện.
@@ -393,7 +340,7 @@ Trạng thái nghiệp vụ & Sách còn bản sao hay không, chi nhánh, trạ
 \label{tab:ai_data_sources_design}
 \end{table}
 
-Về mặt lưu trữ, nhóm chọn hướng \textbf{vector theo chunk} thay vì một vector
+Về mặt lưu trữ, thiết kế chọn hướng \textbf{vector theo chunk} thay vì một vector
 duy nhất cho cả sách. Một sách có thể bao gồm nhiều chủ đề; nếu chỉ dùng một
 vector trung bình cho toàn bộ tài liệu, các chương nhỏ nhưng quan trọng dễ bị
 loãng. Vì vậy, mỗi chunk có một embedding riêng và liên kết về
@@ -759,12 +706,7 @@ sách gợi ý, và các ấn phẩm không còn khả dụng sẽ bị giảm �
 recommendation không chỉ ``đúng về mặt thuật toán'' mà còn dùng được trong vận
 hành thực tế.
 
-\section{Thiết kế}
-\subsection{Kiến trúc hệ thống}
-\label{subsec:system-architecture}
-\subsection{Thiết kế cơ sở dữ liệu}
-\label{subsec:database-design}
-
+\section{Thiết kế cơ sở dữ liệu}
 Thiết kế cơ sở dữ liệu là quá trình chuyển đổi từ mô hình phân tích yêu cầu và các thực thể đã được đặc tả ở các phần trước thành một cấu trúc lưu trữ logic và vật lý. Mục tiêu là xây dựng một nền tảng dữ liệu nhất quán, toàn vẹn, hiệu quả và có khả năng mở rộng để hỗ trợ toàn bộ nghiệp vụ của hệ thống, từ các giao dịch mượn trả cơ bản đến các tính năng AI phức tạp.
 
 \subsubsection{Lựa chọn Hệ Quản trị Cơ sở dữ liệu (HQTCSDL)}
@@ -787,7 +729,7 @@ báo và các nghiệp vụ mượn/đặt trước.
 Các quan hệ nghiệp vụ chính được thể hiện qua \textbf{borrowing\_transactions},
 \textbf{reservations} và \textbf{fines}. Một người dùng có thể tạo nhiều phiếu
 mượn hoặc đặt trước; mỗi phiếu mượn gắn với một bản sao sách cụ thể và có thể
-phát sinh phí phạt nếu quá hạn, mất sách hoặc hư hỏng. Nhóm bảng AI như
+phát sinh phí phạt nếu quá hạn, mất sách hoặc hư hỏng. Các bảng AI như
 \textbf{PublicationVector}, \textbf{Ai\_Recommendation} và
 \textbf{user\_interactions} được tách ra nhưng vẫn liên kết với dữ liệu lõi để
 hỗ trợ gợi ý cá nhân hóa, tìm kiếm ngữ nghĩa và phân tích hành vi đọc.
@@ -797,76 +739,5 @@ hỗ trợ gợi ý cá nhân hóa, tìm kiếm ngữ nghĩa và phân tích hà
 \includegraphics[width=1\linewidth]{figures/ch05/database/erd.png}
  \caption{Sơ đồ Quan hệ Thực thể (ERD) tổng thể của hệ thống}
  \label{fig:erd}
-\end{figure}
-\FloatBarrier
-
-\subsection{Thiết kế giao diện}
-
-Toàn bộ giao diện hệ thống được thiết kế trên \textbf{Figma} trước khi hiện thực, đảm bảo sự thống nhất về phong cách (Design System) và luồng tương tác (User Flow) giữa các màn hình. Bản thiết kế đầy đủ có thể xem tại đường dẫn trong Phụ lục~\ref{appendix:resources}.
-
-Hệ thống tuân thủ các nguyên tắc thiết kế cốt lõi: \textbf{tính nhất quán} (màu sắc, typography, hành vi component thống nhất toàn ứng dụng), \textbf{phản hồi trạng thái} (loading skeleton khi AI xử lý, toast notification sau thao tác), \textbf{tối giản} (nội dung trọng tâm là sách và thanh tìm kiếm), và \textbf{responsive} (Tailwind CSS Grid đảm bảo hiển thị tốt trên mọi thiết bị). Các component được xây dựng theo thiết kế Figma, kết hợp Tailwind CSS, lucide-react, sonner và một số thư viện nhỏ như react-select, react-day-picker để giữ giao diện linh hoạt nhưng vẫn nhất quán.
-
-\subsubsection{Giao diện Public (Trang chủ và Tìm kiếm)}
-
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}[t]{0.48\linewidth}
-        \includegraphics[width=\linewidth, height=0.38\textheight, keepaspectratio]{figures/ch05/ui/public/homepage.png}
-        \caption{Trang chủ}
-        \label{fig:home_page}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.48\linewidth}
-        \includegraphics[width=\linewidth, height=0.38\textheight, keepaspectratio]{figures/ch05/ui/public/search_book.png}
-        \caption{Tìm kiếm sách với bộ lọc}
-        \label{fig:search_book}
-    \end{subfigure}
-    \caption{Giao diện Public: Trang chủ và Tìm kiếm}
-\end{figure}
-
-
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.6\linewidth]{figures/ch05/ui/public/book_detail.png}
-    \caption{Giao diện Chi tiết sách}
-    \label{fig:book_detail}
-\end{figure}
-\FloatBarrier
-
-\subsubsection{Giao diện Độc giả (User Pages)}
-
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}[t]{0.48\linewidth}
-        \includegraphics[width=\linewidth, height=0.38\textheight, keepaspectratio]{figures/ch05/ui/reader/dashboard.png}
-        \caption{Dashboard tổng quan}
-        \label{fig:user_dashboard}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.48\linewidth}
-        \includegraphics[width=\linewidth, height=0.38\textheight, keepaspectratio]{figures/ch05/ui/reader/current_books.png}
-        \caption{Quản lý sách đang mượn}
-        \label{fig:user_borrowing}
-    \end{subfigure}
-    \caption{Giao diện Độc giả: Dashboard và Quản lý mượn sách}
-\end{figure}
-\FloatBarrier
-
-\subsubsection{Giao diện Thủ thư (Librarian Pages)}
-
-\begin{figure}[htbp]
-    \centering
-    \begin{subfigure}[t]{0.48\linewidth}
-        \includegraphics[width=\linewidth, height=0.38\textheight, keepaspectratio]{figures/ch05/ui/librarian/publication_list.png}
-        \caption{Quản lý danh mục sách}
-        \label{fig:lib_pub_list}
-    \end{subfigure}
-    \hfill
-    \begin{subfigure}[t]{0.48\linewidth}
-        \includegraphics[width=\linewidth, height=0.38\textheight, keepaspectratio]{figures/ch05/ui/librarian/borrow_book.png}
-        \caption{Ghi nhận mượn sách (Check-out)}
-        \label{fig:lib_checkout}
-    \end{subfigure}
-    \caption{Giao diện Thủ thư: Quản lý danh mục và Lưu thông}
 \end{figure}
 \FloatBarrier

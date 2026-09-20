@@ -4,7 +4,7 @@
 \section{Mô tả hệ thống}
 \label{sec:MoTaHeThong}
 
-Hệ thống được đề xuất là một \textbf{hệ thống quản lý thư viện trực tuyến tích hợp AI hỗ trợ tìm kiếm, gợi ý và khai thác nội dung tài liệu PDF}. Mục tiêu của dự án không chỉ là tạo một trang tra cứu sách, mà là xây dựng một nền tảng có đủ nghiệp vụ thư viện: quản lý ấn phẩm, bản sao, người dùng, mượn--trả, đặt trước, phí phạt, thông báo và dashboard vận hành. Trên nền nghiệp vụ đó, AI được dùng ở những điểm thật sự có giá trị như làm giàu metadata từ PDF, tìm kiếm ngữ nghĩa và gợi ý tài liệu theo hành vi người dùng.
+Hệ thống được đề xuất là một \textbf{hệ thống quản lý thư viện trực tuyến tích hợp AI hỗ trợ tìm kiếm, gợi ý và khai thác nội dung tài liệu PDF}. Mục tiêu là xây dựng một nền tảng có đủ nghiệp vụ thư viện: quản lý ấn phẩm, bản sao, người dùng, mượn--trả, đặt trước, phí phạt, thông báo và dashboard vận hành. Trên nền nghiệp vụ đó, AI được dùng ở những điểm thật sự có giá trị như làm giàu metadata từ PDF, tìm kiếm ngữ nghĩa và gợi ý tài liệu theo hành vi người dùng.
 
 Hệ thống được thiết kế để phục vụ hai nhóm người dùng chính, mỗi nhóm có vai trò và nhu cầu riêng biệt:
 \begin{itemize}
@@ -16,7 +16,7 @@ Hệ thống được thiết kế để phục vụ hai nhóm người dùng ch
 \section{Hướng tiếp cận thiết kế}
 \label{subsec:DesignApproach}
 
-Hệ thống Quản lý Thư viện được thiết kế theo phương pháp ``từ dưới lên'' (bottom-up design). Hướng tiếp cận này phù hợp với hệ thống hiện tại vì mỗi phần nghiệp vụ có thể được xây dựng và kiểm thử tương đối độc lập trước khi ghép thành luồng hoàn chỉnh trên giao diện. Backend được tổ chức theo modular monolith, frontend là React SPA, còn AI service là một service riêng xử lý PDF, semantic search và recommendation.
+Hệ thống Quản lý Thư viện được thiết kế theo phương pháp ``từ dưới lên''. Backend được tổ chức theo modular monolith, frontend là React SPA, còn AI service là một service riêng xử lý PDF, semantic search và recommendation.
 
 Quá trình thiết kế được thực hiện theo các bước sau:
 \begin{enumerate}
@@ -96,8 +96,7 @@ Hệ thống yêu cầu và quản lý các nhóm dữ liệu chính sau:
     \item \textbf{Dữ liệu hành vi và AI (Behavioral/AI Data):} Gồm lịch sử tìm kiếm, lượt xem chi tiết sách, wishlist, rating, lịch sử mượn, vector embedding của chunk PDF, summary AI, audience, tag AI và trạng thái ETL. Đây là nguồn dữ liệu phục vụ semantic search và recommendation.
 \end{itemize}
 
-\section{Kết chương}
-\label{sec:KetChuong4}
+\textbf{Kết chương}
 
 Chương này đã trình bày tổng quan hệ thống quản lý thư viện trực tuyến tích hợp AI. Hệ thống được định hướng như một sản phẩm hoàn chỉnh, trong đó nghiệp vụ thư viện vẫn là phần lõi, còn AI được dùng để làm giàu dữ liệu, hỗ trợ tìm kiếm ngữ nghĩa và gợi ý tài liệu.
 

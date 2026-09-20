@@ -49,3 +49,14 @@ Xoa ca file PDF da build:
 ```sh
 make distclean
 ```
+
+
+
+# 1. Để \includeSignedFormstrue, rồi build
+make pdf
+cp HK252-DATN-330_2213188.pdf HK252-DATN-330_2213188_with_forms.pdf
+
+# 2. Đổi thành \includeSignedFormsfalse, rồi build lại
+make pdf
+cp HK252-DATN-330_2213188.pdf HK252-DATN-330_2213188_no_forms.pdf
+  
