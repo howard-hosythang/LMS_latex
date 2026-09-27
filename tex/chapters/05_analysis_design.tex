@@ -22,28 +22,98 @@ có thể mở rộng sang semantic search; mượn/đặt trước bao gồm ki
 mượn; upload PDF bao gồm xử lý AI; trả sách và báo hư/mất bao gồm tính phí và
 gửi thông báo.
 
-\begin{table}[H]
-\centering
+\begin{longtable}{|
+    p{0.22\linewidth}|
+    >{\raggedright\arraybackslash}p{0.37\linewidth}|
+    >{\raggedright\arraybackslash}p{0.37\linewidth}|
+}
 \caption{Đối chiếu nhóm Use Case với hiện thực hệ thống}
 \label{tab:usecase_mapping_reality}
-\begin{tabularx}{\linewidth}{|p{0.22\linewidth}|>{\raggedright\arraybackslash}X|>{\raggedright\arraybackslash}X|}
+\\
 \hline
-\textbf{Nhóm} & \textbf{Use case chính} & \textbf{Hiện thực tương ứng} \\
+
+\textbf{Nhóm}
+&
+\textbf{Use case chính}
+&
+\textbf{Hiện thực tương ứng}
+\\
 \hline
-Xác thực và tài khoản & Đăng ký, xác thực email, đăng nhập thường, đăng nhập Google, refresh token, quên/đặt lại mật khẩu, hồ sơ, avatar, đổi mật khẩu, thông báo & Auth/User modules, OAuth2 Google, JWT/refresh token, email verification/reset password, profile API và notification API. \\
+
+\endfirsthead
+
+\multicolumn{3}{c}%
+{\textbf{Bảng \thetable{} -- tiếp tục từ trang trước}}
+\\
 \hline
-Tra cứu và khám phá tài liệu & Trang chủ, tìm kiếm catalog, semantic search, lọc danh mục/tag, chi tiết tài liệu, bản sao, đánh giá, sách tương tự, thống kê công khai & Public pages và catalog/recommendation API: \texttt{/api/v1/publications/}\allowbreak\texttt{search}, \texttt{/api/v1/ai/semantic-search}, \texttt{/api/v1/publications/}\allowbreak\texttt{\{id\}}, \texttt{/items}, \texttt{/ratings}, \texttt{/similar}. \\
+
+\textbf{Nhóm}
+&
+\textbf{Use case chính}
+&
+\textbf{Hiện thực tương ứng}
+\\
 \hline
-Chức năng bạn đọc & Mượn, đặt trước, hủy đặt trước, theo dõi sách đang mượn, lịch sử mượn trả, phí phạt, PayOS, wishlist, rating, gợi ý cá nhân hóa & Reader pages, circulation/reservation/fine APIs, PayOS payment, wishlist/rating APIs và recommendation API. \\
+
+\endhead
+
 \hline
-Chức năng thủ thư & Quản lý ấn phẩm, bản sao, upload bìa/PDF, AI ETL, xử lý yêu cầu mượn, mượn trực tiếp, trả sách, báo hư/mất, ghi chú giao dịch, thu tiền mặt & Librarian pages, catalog/item APIs, presigned upload, backend AI gateway, circulation transaction APIs, fine cash payment và notification/email events. \\
+\multicolumn{3}{r}{\textit{Tiếp tục ở trang sau}}
+\\
+\endfoot
+
 \hline
-Chức năng quản trị & Quản lý thủ thư, quản lý người dùng, khóa/mở khóa, xác minh tài khoản, chính sách mượn trả, nhật ký hệ thống & Admin pages và admin APIs: librarian/user management, circulation policy, audit log và account verification. \\
+\endlastfoot
+
+Xác thực và tài khoản
+&
+Đăng ký, xác thực email, đăng nhập thường, đăng nhập Google, refresh token, quên/đặt lại mật khẩu, hồ sơ, avatar, đổi mật khẩu, thông báo
+&
+Auth/User modules, OAuth2 Google, JWT/refresh token, email verification/reset password, profile API và notification API.
+\\
 \hline
-AI và xử lý tự động & Semantic search, recommendation, sách tương tự, xử lý PDF, trích xuất text, embedding, sinh summary/tag/audience, ghi nhận tương tác, realtime/email notification & AI service FastAPI/Celery, RabbitMQ, Gemini API, PostgreSQL pgvector, interaction tracking, Kafka/email/WebSocket notification. \\
+
+Tra cứu và khám phá tài liệu
+&
+Trang chủ, tìm kiếm catalog, semantic search, lọc danh mục/tag, chi tiết tài liệu, bản sao, đánh giá, sách tương tự, thống kê công khai
+&
+Public pages và catalog/recommendation API: \texttt{/api/v1/publications/}\allowbreak\texttt{search}, \texttt{/api/v1/ai/semantic-search}, \texttt{/api/v1/publications/}\allowbreak\texttt{\{id\}}, \texttt{/items}, \texttt{/ratings}, \texttt{/similar}.
+\\
 \hline
-\end{tabularx}
-\end{table}
+
+Chức năng bạn đọc
+&
+Mượn, đặt trước, hủy đặt trước, theo dõi sách đang mượn, lịch sử mượn trả, phí phạt, PayOS, wishlist, rating, gợi ý cá nhân hóa
+&
+Reader pages, circulation/reservation/fine APIs, PayOS payment, wishlist/rating APIs và recommendation API.
+\\
+\hline
+
+Chức năng thủ thư
+&
+Quản lý ấn phẩm, bản sao, upload bìa/PDF, AI ETL, xử lý yêu cầu mượn, mượn trực tiếp, trả sách, báo hư/mất, ghi chú giao dịch, thu tiền mặt
+&
+Librarian pages, catalog/item APIs, presigned upload, backend AI gateway, circulation transaction APIs, fine cash payment và notification/email events.
+\\
+\hline
+
+Chức năng quản trị
+&
+Quản lý thủ thư, quản lý người dùng, khóa/mở khóa, xác minh tài khoản, chính sách mượn trả, nhật ký hệ thống
+&
+Admin pages và admin APIs: librarian/user management, circulation policy, audit log và account verification.
+\\
+\hline
+
+AI và xử lý tự động
+&
+Semantic search, recommendation, sách tương tự, xử lý PDF, trích xuất text, embedding, sinh summary/tag/audience, ghi nhận tương tác, realtime/email notification
+&
+AI service FastAPI/Celery, RabbitMQ, Gemini API, PostgreSQL pgvector, interaction tracking, Kafka/email/WebSocket notification.
+\\
+\hline
+
+\end{longtable}
 
 \subsection{Mô hình hóa luồng xử lý (Activity Diagram)}
 \label{subsec:activity-diagram}
