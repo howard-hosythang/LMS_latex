@@ -32,7 +32,7 @@ gửi thông báo.
 \hline
 Xác thực và tài khoản & Đăng ký, xác thực email, đăng nhập thường, đăng nhập Google, refresh token, quên/đặt lại mật khẩu, hồ sơ, avatar, đổi mật khẩu, thông báo & Auth/User modules, OAuth2 Google, JWT/refresh token, email verification/reset password, profile API và notification API. \\
 \hline
-Tra cứu và khám phá tài liệu & Trang chủ, tìm kiếm catalog, semantic search, lọc danh mục/tag, chi tiết tài liệu, bản sao, đánh giá, sách tương tự, thống kê công khai & Public pages và catalog/recommendation API: \texttt{/api/v1/publications/search}, \texttt{/api/v1/ai/semantic-search}, \texttt{/api/v1/publications/\{id\}}, \texttt{/items}, \texttt{/ratings}, \texttt{/similar}. \\
+Tra cứu và khám phá tài liệu & Trang chủ, tìm kiếm catalog, semantic search, lọc danh mục/tag, chi tiết tài liệu, bản sao, đánh giá, sách tương tự, thống kê công khai & Public pages và catalog/recommendation API: \texttt{/api/v1/publications/}\allowbreak\texttt{search}, \texttt{/api/v1/ai/semantic-search}, \texttt{/api/v1/publications/}\allowbreak\texttt{\{id\}}, \texttt{/items}, \texttt{/ratings}, \texttt{/similar}. \\
 \hline
 Chức năng bạn đọc & Mượn, đặt trước, hủy đặt trước, theo dõi sách đang mượn, lịch sử mượn trả, phí phạt, PayOS, wishlist, rating, gợi ý cá nhân hóa & Reader pages, circulation/reservation/fine APIs, PayOS payment, wishlist/rating APIs và recommendation API. \\
 \hline
@@ -145,65 +145,146 @@ phân tích use case với thiết kế dữ liệu và cấu trúc backend.
 \end{figure}
 \subsection{Công nghệ được sử dụng}
 \label{subsec:technologies-used}
-\begin{table}[H]
-\centering
+
+\begingroup
 \small
 \renewcommand{\arraystretch}{1.18}
 \setlength{\tabcolsep}{4pt}
-\begin{tabularx}{\linewidth}{|p{2.2cm}|p{4.1cm}|X|}
-\hline
-\textbf{Phần} & \textbf{Công nghệ} & \textbf{Vai trò trong hệ thống} \\
-\hline
-\textbf{Frontend} & React, TypeScript, Vite & Xây dựng SPA, chia trang theo vai trò và phát triển giao diện có kiểm soát kiểu dữ liệu. \\
-\hline
-\textbf{Frontend} & Tailwind CSS, lucide-react, sonner & Thiết kế giao diện, icon, toast notification và trạng thái tương tác. \\
-\hline
-\textbf{Frontend} & React Router/HashRouter & Điều hướng public/user/librarian/admin page và bảo vệ route theo vai trò. \\
-\hline
-\textbf{Frontend} & Context API & Quản lý trạng thái dùng chung như đăng nhập, ngôn ngữ, theme, notification và upload. \\
-\hline
-\textbf{Frontend} & Axios, STOMP/SockJS & Gọi REST API, gắn JWT/refresh token và nhận thông báo realtime qua WebSocket. \\
-\hline
-\textbf{Frontend} & Jest, Testing Library, Nginx & Kiểm thử frontend và phục vụ bản build static trong container production. \\
-\hline
-\textbf{Backend} & Java 21, Spring Boot & Hiện thực API nghiệp vụ theo mô hình modular monolith. \\
-\hline
-\textbf{Backend} & Spring Security, JWT, OAuth2 & Xác thực, phân quyền, refresh token và đăng nhập Google. \\
-\hline
-\textbf{Backend} & Spring Data JPA, Flyway & Truy cập dữ liệu, quản lý entity và migration cơ sở dữ liệu. \\
-\hline
-\textbf{Backend} & PostgreSQL, pgvector & Lưu dữ liệu nghiệp vụ, metadata AI và vector phục vụ semantic search. \\
-\hline
-\textbf{Backend} & Kafka, WebSocket & Phát sự kiện và đẩy thông báo realtime đến người dùng. \\
-\hline
-\textbf{Backend} & RabbitMQ, S3-compatible Storage & Gửi job xử lý AI và lưu trữ ảnh bìa/PDF thông qua presigned URL. \\
-\hline
-\textbf{Backend} & PayOS, Gmail SMTP, OpenAPI/Swagger & Thanh toán phí phạt, gửi email và tài liệu hóa API. \\
-\hline
-\textbf{Backend} & JUnit, Mockito, Testcontainers & Kiểm thử unit/controller và integration với PostgreSQL thật. \\
-\hline
-\textbf{Backend} & Docker, Docker Compose & Đóng gói backend và triển khai cùng các dịch vụ phụ trợ. \\
-\hline
-\textbf{AI Service} & Python, FastAPI & Xây dựng API cho semantic search, similar books, recommendation và health check. \\
-\hline
-\textbf{AI Service} & Celery, RabbitMQ & Xử lý job AI bất đồng bộ sau khi thủ thư upload PDF. \\
-\hline
-\textbf{AI Service} & PyMuPDF & Trích xuất văn bản từ PDF trước khi làm sạch và chia chunk. \\
-\hline
-\textbf{AI Service} & SentenceTransformer/SBERT & Sinh embedding tiếng Việt cho chunk tài liệu và truy vấn tìm kiếm. \\
-\hline
-\textbf{AI Service} & Gemini API & Sinh summary, audience và tag học thuật ở bước metadata enrichment. \\
-\hline
-\textbf{AI Service} & PostgreSQL, pgvector & Lưu vector, ETL run, search log và dữ liệu phục vụ truy vấn nearest-neighbor. \\
-\hline
-\textbf{AI Service} & ALS implicit feedback, content-based, trending fallback & Tạo gợi ý sách cá nhân hóa và fallback khi dữ liệu tương tác còn ít. \\
-\hline
-\textbf{AI Service} & pytest, Docker & Kiểm thử AI Service và đóng gói FastAPI/Celery Worker để chạy tách biệt trong production. \\
-\hline
-\end{tabularx}
+\begin{xltabular}{\linewidth}{|p{2.2cm}|p{4.1cm}|X|}
 \caption{Công nghệ được sử dụng trong hệ thống}
-\label{tab:technologies_used}
-\end{table}
+\label{tab:technologies_used} \\
+
+\hline
+\textbf{Phần} &
+\textbf{Công nghệ} &
+\textbf{Vai trò trong hệ thống} \\
+\hline
+\endfirsthead
+
+\hline
+\textbf{Phần} &
+\textbf{Công nghệ} &
+\textbf{Vai trò trong hệ thống} \\
+\hline
+\endhead
+
+\textbf{Frontend} &
+React, TypeScript, Vite &
+Xây dựng SPA, chia trang theo vai trò và phát triển giao diện có kiểm soát kiểu dữ liệu. \\
+\hline
+
+\textbf{Frontend} &
+Tailwind CSS, lucide-react, sonner &
+Thiết kế giao diện, icon, toast notification và trạng thái tương tác. \\
+\hline
+
+\textbf{Frontend} &
+React Router/HashRouter &
+Điều hướng public/user/librarian/admin page và bảo vệ route theo vai trò. \\
+\hline
+
+\textbf{Frontend} &
+Context API &
+Quản lý trạng thái dùng chung như đăng nhập, ngôn ngữ, theme, notification và upload. \\
+\hline
+
+\textbf{Frontend} &
+Axios, STOMP/SockJS &
+Gọi REST API, gắn JWT/refresh token và nhận thông báo realtime qua WebSocket. \\
+\hline
+
+\textbf{Frontend} &
+Jest, Testing Library, Nginx &
+Kiểm thử frontend và phục vụ bản build static trong container production. \\
+\hline
+
+\textbf{Backend} &
+Java 21, Spring Boot &
+Hiện thực API nghiệp vụ theo mô hình modular monolith. \\
+\hline
+
+\textbf{Backend} &
+Spring Security, JWT, OAuth2 &
+Xác thực, phân quyền, refresh token và đăng nhập Google. \\
+\hline
+
+\textbf{Backend} &
+Spring Data JPA, Flyway &
+Truy cập dữ liệu, quản lý entity và migration cơ sở dữ liệu. \\
+\hline
+
+\textbf{Backend} &
+PostgreSQL, pgvector &
+Lưu dữ liệu nghiệp vụ, metadata AI và vector phục vụ semantic search. \\
+\hline
+
+\textbf{Backend} &
+Kafka, WebSocket &
+Phát sự kiện và đẩy thông báo realtime đến người dùng. \\
+\hline
+
+\textbf{Backend} &
+RabbitMQ, S3-compatible Storage &
+Gửi job xử lý AI và lưu trữ ảnh bìa/PDF thông qua presigned URL. \\
+\hline
+
+\textbf{Backend} &
+PayOS, Gmail SMTP, OpenAPI/Swagger &
+Thanh toán phí phạt, gửi email và tài liệu hóa API. \\
+\hline
+
+\textbf{Backend} &
+JUnit, Mockito, Testcontainers &
+Kiểm thử unit/controller và integration với PostgreSQL thật. \\
+\hline
+
+\textbf{Backend} &
+Docker, Docker Compose &
+Đóng gói backend và triển khai cùng các dịch vụ phụ trợ. \\
+\hline
+
+\textbf{AI Service} &
+Python, FastAPI &
+Xây dựng API cho semantic search, similar books, recommendation và health check. \\
+\hline
+
+\textbf{AI Service} &
+Celery, RabbitMQ &
+Xử lý job AI bất đồng bộ sau khi thủ thư upload PDF. \\
+\hline
+
+\textbf{AI Service} &
+PyMuPDF &
+Trích xuất văn bản từ PDF trước khi làm sạch và chia chunk. \\
+\hline
+
+\textbf{AI Service} &
+SentenceTransformer\allowbreak/ SBERT &
+Sinh embedding tiếng Việt cho chunk tài liệu và truy vấn tìm kiếm. \\
+\hline
+
+\textbf{AI Service} &
+Gemini API &
+Sinh summary, audience và tag học thuật ở bước metadata enrichment. \\
+\hline
+
+\textbf{AI Service} &
+PostgreSQL, pgvector &
+Lưu vector, ETL run, search log và dữ liệu phục vụ truy vấn nearest-neighbor. \\
+\hline
+
+\textbf{AI Service} &
+ALS implicit feedback, content-based, trending fallback &
+Tạo gợi ý sách cá nhân hóa và fallback khi dữ liệu tương tác còn ít. \\
+\hline
+
+\textbf{AI Service} &
+pytest, Docker &
+Kiểm thử AI Service và đóng gói FastAPI/Celery Worker để chạy tách biệt trong production. \\
+\hline
+
+\end{xltabular}
+\endgroup
 Các công nghệ trong hệ thống được chọn theo đúng phạm vi hiện thực: frontend
 phục vụ trải nghiệm người dùng, backend xử lý nghiệp vụ thư viện và AI Service
 xử lý các tác vụ tìm kiếm/gợi ý thông minh. Bảng dưới đây gom các công nghệ
@@ -442,7 +523,7 @@ Text cleaning & Chuẩn hóa khoảng trắng, bỏ số trang/header/footer l�
 \hline
 Sliding window chunking & Chia văn bản thành các chunk có overlap để giữ ngữ cảnh liên tục. & Tăng khả năng tìm trúng đoạn liên quan khi truy vấn theo ý nghĩa. \\
 \hline
-SentenceTransformer/SBERT & Sinh embedding 768 chiều cho từng chunk và query. & Phù hợp mô hình bi-encoder, vector được tính trước nên tìm kiếm nhanh. \\
+SentenceTransformer\allowbreak/SBERT & Sinh embedding 768 chiều cho từng chunk và query. & Phù hợp mô hình bi-encoder, vector được tính trước nên tìm kiếm nhanh. \\
 \hline
 Gemini reduce & Nhận một phần nội dung đại diện, sinh summary, audience và tag theo JSON. & LLM chỉ dùng để làm giàu metadata, không nằm trên đường tìm kiếm chính. \\
 \hline
@@ -490,7 +571,7 @@ Upload và lưu file & Frontend xin \textbf{presigned upload URL}; file PDF đư
 \hline
 ETL nội dung & AI Service dùng \textbf{PyMuPDF} để trích xuất text, làm sạch header/footer/số trang, sau đó chia chunk bằng sliding window. & \textbf{Index nội dung thật của PDF}, không chỉ index tiêu đề hay mô tả thủ công. \\
 \hline
-Embedding và metadata & Chunk được vector hóa và lưu vào \texttt{ai\_engine.publication\_vectors}; Gemini chỉ được gọi ở bước reduce để tạo summary, audience và tag. & \textbf{Không gọi LLM trong mỗi lần tìm kiếm}; giảm độ trễ, giảm quota và tăng độ ổn định. \\
+Embedding và metadata & Chunk được vector hóa và lưu vào \texttt{ai\_engine.publication\_}\allowbreak\texttt{vectors}; Gemini chỉ được gọi ở bước reduce để tạo summary, audience và tag. & \textbf{Không gọi LLM trong mỗi lần tìm kiếm}; giảm độ trễ, giảm quota và tăng độ ổn định. \\
 \hline
 Theo dõi trạng thái & Kết quả xử lý được lưu với trạng thái \texttt{RUNNING}, \texttt{SUCCESS}, \texttt{FAILED}; nếu lỗi, catalog vẫn giữ ấn phẩm. & \textbf{AI lỗi không làm hỏng nghiệp vụ thư viện}. \\
 \hline

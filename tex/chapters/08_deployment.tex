@@ -19,7 +19,7 @@ ngoài.
 
 Trong repository hiện tại, cấu hình container được tách theo từng thành phần:
 \texttt{LMS\_BE/docker-compose.yml} quản lý PostgreSQL và Kafka cho backend,
-còn \texttt{LMS-AI/docker-compose.yml} quản lý RabbitMQ, FastAPI API server và
+còn\\ \texttt{LMS-AI/docker-compose.yml} quản lý RabbitMQ, FastAPI API server và
 Celery worker. Frontend và backend có Dockerfile riêng để build image triển
 khai. Khi đưa lên server, các thành phần này cần được đặt trong cùng một mạng
 triển khai hoặc được cấu hình endpoint rõ ràng thông qua biến môi trường.
@@ -31,7 +31,7 @@ Luồng kết nối quan trọng nhất là backend gọi AI qua
 ở AI service.
 
 Một điểm khác biệt quan trọng so với cấu hình phát triển là giá trị
-\texttt{KAFKA\_CFG\_ADVERTISED\_LISTENERS} được thay đổi từ
+\path{KAFKA_CFG_ADVERTISED_LISTENERS} được thay đổi từ
 \texttt{PLAINTEXT://localhost:9092} thành \texttt{PLAINTEXT://kafka:9092}.
 Trong môi trường phát triển, Spring Boot chạy trên máy host nên dùng
 \texttt{localhost}; trong môi trường container, Spring Boot nằm trong một
@@ -44,7 +44,7 @@ cd LMS_BE && docker compose up -d
 # AI Service
 cd ../LMS-AI && docker compose up -d --build
 
-# Build image Backend và Frontend khi triển khai container hóa đầy đủ
+# Build image Backend và Frontend
 cd ../LMS_BE && docker build -t lms-backend .
 cd ../LMS_fe && docker build -t lms-frontend .
 \end{verbatim}
@@ -120,7 +120,7 @@ Frontend
 \end{table}
 
 Khi triển khai lên máy chủ, mỗi thành phần có file môi trường riêng:
-\texttt{LMS\_BE/.env}, \texttt{LMS-AI/.env} và cấu hình build cho
+\path{LMS_BE.env}, \path{LMS-AI.env} và cấu hình build cho
 \texttt{LMS\_fe}. Các file này được tạo từ \texttt{.env.example}, điền giá trị
 thực tế trên server và không đưa vào lịch sử git. Với Docker Compose, các biến
 được tham chiếu qua \texttt{env\_file} hoặc truyền vào build argument để tránh
@@ -205,7 +205,7 @@ VPS, Caddy nhận request HTTPS, tự động xử lý chứng chỉ TLS và đ�
 
 Luồng kết nối sau khi đi vào backend tiếp tục được phân tách theo trách nhiệm:
 Spring Boot xử lý nghiệp vụ chính và kết nối PostgreSQL/Kafka; backend gọi AI
-Service qua \texttt{AI\_GATEWAY\_BASE\_URL}; AI worker xử lý PDF bất đồng bộ qua
+Service qua \path{AI_GATEWAY_BASE_URL}; AI worker xử lý PDF bất đồng bộ qua
 RabbitMQ và callback kết quả về backend bằng chữ ký HMAC. Các tích hợp ngoài
 như S3-compatible storage, PayOS, Gmail SMTP, Google OAuth2 và Gemini API được
 kết nối từ backend hoặc AI worker theo đúng vai trò của từng dịch vụ.
